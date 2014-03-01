@@ -3,6 +3,11 @@
 
     <string name="app_name">DisasterSafetyAlert</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="history">History</string>
+    <string name="watch">Watch Area</string>
+    <string name="what">What do I do?</string>
+    <string name="settings">Settings</string>
+    <string name="notify">Notify Family</string>
+    <string name="checkFriends">Check on Your Friends</string>
 
 </resources>
