@@ -23,10 +23,13 @@ public class UpdateDBService extends IntentService {
 		if(p.length() > 10) {
 			phone = p.substring(1);
 		}
+		Log.i("getStat", bundle.getString("type"));
 		Log.i("getOrig", p);
 		Log.i("getNew", phone);
 		
 		if(status == 0 || status == 1) {
+			
+			Log.i("changing", "yeaaah");
 			/* New Database Helper */
 			DBHelper dbHelper = new DBHelper(this.getApplicationContext());
 			SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -38,6 +41,8 @@ public class UpdateDBService extends IntentService {
 			db.update(DSAContract.AlertContactTable.TABLE_NAME,
 					values,
 					"PhoneNumber = \"" + phone + "\"", null);
+			String s = dbHelper.getSafety("Ryan Doherty");
+			Log.i("safetyCheck", s);
 		}
 		else if(status == 2) {
 			Intent iR = new Intent(this.getApplicationContext(), RespondActivity.class);

@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -38,28 +39,36 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
+        <!-- Main PAGE -->
         <activity
             android:name="com.livequake.disastersafetyalert.MainFragmentActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- PEOPLE PAGE -->
         <activity
             android:name="com.livequake.disastersafetyalert.PeopleActivity"
             android:label="@string/title_activity_people" >
         </activity>
+        
+        <!-- PLACE PAGE -->
         <activity
             android:name="com.livequake.disastersafetyalert.PlacesActivity"
             android:label="@string/title_activity_places" >
         </activity>
+        
+        <!-- NOTHING..... -->
         <activity
             android:name="com.livequake.disastersafetyalert.WatchAreaActivity"
             android:label="@string/title_activity_watch_area" >
         </activity>
+
         <activity android:name="com.urbanairship.push.sample.PushPreferencesActivity" />
         <activity android:name="com.urbanairship.push.sample.LocationActivity" />
 

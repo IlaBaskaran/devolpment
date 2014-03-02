@@ -21,5 +21,6 @@
     <string name="title_activity_smsreceiver">SMSReceiver</string>
     <string name="title_activity_respond">RespondActivity</string>
     <string name="disaster_feed">http://earthquake.usgs.gov/eqcenter/catalogs/1day-M2.5.xml</string>
+    <string name="p_info">To Fill</string>
 
 </resources>

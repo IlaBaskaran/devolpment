@@ -92,7 +92,6 @@ public class DBHelper extends SQLiteOpenHelper {
 	    return contactList;
 	}
 
-
     /* Get Phone Number of Specific Contact from Name */
     public String getPhone(String name) {
     	String num = "";
@@ -104,6 +103,25 @@ public class DBHelper extends SQLiteOpenHelper {
     		if(cursor != null) {
     			num = cursor.getString(0);
     			Log.i("getP", num);
+    		}
+    	}
+    	
+    	cursor.close();
+    	db.close();
+    	return num;
+    }
+
+    /* Get Safety from Name */
+    public String getSafety(String name) {
+    	String num = "";
+    	
+    	SQLiteDatabase db = this.getReadableDatabase();
+    	Cursor cursor = db.rawQuery(DSAContract.AlertContactTable.SQL_GET_SAFETY + "\"" + name + "\";", null);
+    	
+    	if(cursor.moveToFirst()) {
+    		if(cursor != null) {
+    			num = cursor.getString(0);
+    			Log.i("gets", num);
     		}
     	}
     	

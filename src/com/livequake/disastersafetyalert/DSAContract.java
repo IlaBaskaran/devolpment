@@ -33,5 +33,9 @@ public final class DSAContract {
 		public static final String SQL_GET_PHONE = "SELECT " + COLUMN_NAME_PHONE +
 				" FROM " + TABLE_NAME +
 				" WHERE " + COLUMN_NAME_NAME_ID + " = ";
+		
+		public static final String SQL_GET_SAFETY = "SELECT " + COLUMN_NAME_SAFE +
+				" FROM " + TABLE_NAME +
+				" WHERE " + COLUMN_NAME_NAME_ID + " = ";
 	}
 }

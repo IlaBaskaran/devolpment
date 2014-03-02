@@ -1,6 +1,7 @@
 package com.livequake.disastersafetyalert;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -22,7 +23,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -34,6 +34,7 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 	private static Context ctx;
 	public static final String beginText = "[LIGHTHOUSE ALERT ";
 	public static final String bTEnd = "] ";
+	private PeopleListAdapter contactAdapter;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,7 +55,8 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int pos, long arg) {
-				String selected =(listContacts.getItemAtPosition(pos).toString());
+				String selected = PeopleListAdapter.data.get(pos).get("name");
+				Log.i("onClick", selected);
 				checkUp(selected);
 			}
 		});
@@ -66,15 +68,28 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 	/* Load names from Alert Contact List into ListView */
 	private void loadList() {
 		/* New Database Helper */
-		DBHelper dbHelper = new DBHelper(this.getActivity().getApplicationContext());
+		DBHelper dbHelper = new DBHelper(ctx);
 
-		List<String> ac = new ArrayList<String>();
-		ac = dbHelper.getAllNames();
+		List<String> acn = new ArrayList<String>();
+		acn = dbHelper.getAllNames();
+		
+		List<Integer> acs = new ArrayList<Integer>();
+		acs = dbHelper.getAllSafety();
 		
 		/* Reset ListView */
 		listContacts.setAdapter(null);
 		
-		ArrayAdapter<String> contactAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, ac);
+		ArrayList<HashMap<String, String>> alertC = new ArrayList<HashMap<String, String>>();
+		for(int count = 0; count < acn.size(); count++) {
+			// creating new HashMap
+			HashMap<String, String> map = new HashMap<String, String>();
+			//adding each child node to HashMap key => value
+			map.put("name", acn.get(count));
+			map.put("safety", acs.get(count).toString());
+			// adding HashList to ArrayList
+			alertC.add(map);
+		}
+		contactAdapter = new PeopleListAdapter(getActivity(), alertC);
 		listContacts.setAdapter(contactAdapter);
 	}
 	
@@ -212,7 +227,7 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 					ContentValues values = new ContentValues();
 					values.put(DSAContract.AlertContactTable.COLUMN_NAME_NAME_ID, name);
 					values.put(DSAContract.AlertContactTable.COLUMN_NAME_PHONE, number);
-					values.put(DSAContract.AlertContactTable.COLUMN_NAME_SAFE, 3);
+					values.put(DSAContract.AlertContactTable.COLUMN_NAME_SAFE, 2);
 			            
 					/* Insert the new row, returning the primary key value of the new row */
 					db.insert(DSAContract.AlertContactTable.TABLE_NAME, null, values);

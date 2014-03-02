@@ -17,14 +17,9 @@ public class ListAdapter extends BaseAdapter {
     private FragmentActivity activity;
     private ArrayList<HashMap<String, String>> data;
     private static LayoutInflater inflater=null;
-   // public ImageLoader imageLoader; 
-    
-    
-    /*
-     * accepts a list of full disaster list
-     * 
-     * 
-     * */
+    // public ImageLoader imageLoader;
+
+    /* accepts a list of full disaster list */
     public ListAdapter(FragmentActivity a, ArrayList<HashMap<String, String>> d) {
         activity = a;
         data=d;
@@ -46,10 +41,11 @@ public class ListAdapter extends BaseAdapter {
     
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
-        if(convertView==null)
+        if(convertView==null) {
             vi = inflater.inflate(R.layout.list_row, null);
-
-        TextView entry = (TextView)vi.findViewById(R.id.entry); // entry
+        }
+        
+        TextView entry = (TextView)vi.findViewById(R.id.date); // entry
         TextView title = (TextView)vi.findViewById(R.id.title); //title
         TextView location = (TextView)vi.findViewById(R.id.location); // location
        // ImageView thumb_image=(ImageView)vi.findViewById(R.id.list_image); // thumb image
@@ -58,9 +54,6 @@ public class ListAdapter extends BaseAdapter {
         d_list = data.get(position);
         
         // Setting all values in listview
-        
-
-    	
         entry.setText(d_list.get(PlacesFragment.KEY_ENTRY));
         title.setText(d_list.get(PlacesFragment.KEY_TITLE));
         location.setText(d_list.get(PlacesFragment.KEY_LOCATION));

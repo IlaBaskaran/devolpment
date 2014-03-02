@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:padding="5dip" >
 
-	<!--  ListRow Left sied Thumbnail image -->
+	<!--  ListRow Left side Thumbnail image -->
 	<LinearLayout android:id="@+id/thumbnail" 
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
@@ -15,15 +15,16 @@
         android:background="@drawable/image_bg" 
 	    android:layout_marginRight="5dip">
         
-		<ImageView     
+		<ImageView
 			android:id="@+id/list_image"   
 	        android:layout_width="50dip"
 	        android:layout_height="50dip"
-	        android:src="@drawable/fire"/>
+	        android:src="@drawable/general_icon"
+	        android:contentDescription="EventType"/>
         
 	</LinearLayout>
     
-	<!-- Title Of Song-->
+	<!-- Event -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
@@ -36,7 +37,7 @@
         android:textSize="15dip"
         android:textStyle="bold"/>
 
-	<!-- Artist Name -->
+	<!-- Location -->
     <TextView
         android:id="@+id/location"
         android:layout_width="fill_parent"
@@ -48,9 +49,9 @@
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Just gonna stand there?" />
 
-	<!-- Rightend Duration -->
+	<!-- Date -->
     <TextView
-        android:id="@+id/entry"
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
