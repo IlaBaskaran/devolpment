@@ -107,7 +107,17 @@
             android:label="Segments Service" />
         <!-- OPTIONAL, if you want to receive push, push opened and registration completed intents -->
         <receiver android:name="com.livequake.disastersafetyalert.IntentReceiver" />
+
         <service android:name="com.livequake.disastersafetyalert.UpdateDBService" />
+
+        <activity
+            android:name="com.livequake.disastersafetyalert.RespondActivity"
+            android:label="@string/title_activity_respond"
+            android:parentActivityName="com.livequake.disastersafetyalert.MainFragmentActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.livequake.disastersafetyalert.MainFragmentActivity" />
+        </activity>
     </application>
 
 </manifest>
