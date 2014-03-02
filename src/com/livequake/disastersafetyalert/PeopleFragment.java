@@ -25,6 +25,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class PeopleFragment extends Fragment implements OnClickListener {
 
@@ -54,7 +55,6 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 			public void onItemClick(AdapterView<?> arg0, View v, int pos, long arg) {
 				String selected =(listContacts.getItemAtPosition(pos).toString());
 				checkUp(selected);
-				loadList();
 			}
 		});
 		
@@ -97,10 +97,11 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 		        	case 1:
 		        		sendSMS(num, 2);
 		        		break;
-		        	/* Delete from Alert Contacts List */
+		        	/* Delete from Alert Contacts List and update ListView */
 		        	case 2:
 		        		SQLiteDatabase db = d.getWritableDatabase();
 		        		db.delete(DSAContract.AlertContactTable.TABLE_NAME, "PhoneNumber" + " = \"" + num + "\";", null);
+		        		loadList();
 		        		break;
 		        	/* Cancel Action */
 		        	case 3: return;
@@ -159,6 +160,10 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 		loadList();
 		
 		/* Send to each in Alert Contacts List */
+		if(ac.isEmpty()) {
+			Toast q = Toast.makeText(PeopleFragment.ctx, "No contacts to alert!", Toast.LENGTH_LONG);
+			q.show();
+		}
 		if(state != 3) {
 			for(int i = 0; i < ac.size(); i++) {
 				sendSMS(ac.get(i), state);
@@ -193,9 +198,10 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 				
 				/* New Database Helper */
 				DBHelper dbHelper = new DBHelper(this.getActivity().getApplicationContext());//getContext());
-				SQLiteDatabase db = dbHelper.getWritableDatabase();
+				
+				if(dbHelper.getPhone(name).isEmpty()) {
+					SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-				if(dbHelper.getPhone(name)== null) {
 					/* Create insert entries */
 					ContentValues values = new ContentValues();
 					values.put(DSAContract.AlertContactTable.COLUMN_NAME_NAME_ID, name);
@@ -204,10 +210,21 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 					/* Insert the new row, returning the primary key value of the new row */
 					db.insert(DSAContract.AlertContactTable.TABLE_NAME, null, values);
 				}
+				else {
+					Toast t = Toast.makeText(PeopleFragment.ctx, "Duplicate Contact", Toast.LENGTH_LONG);
+					t.show();
+				}
 			}
 		}
 	}
 
+	@Override
+	public void onResume() {
+		loadList();
+		Log.i("test", "onResume called");
+		super.onResume();
+	}
+	
 	public String getName() {
 		return "People";
 	}
