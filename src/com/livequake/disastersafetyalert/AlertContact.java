@@ -3,7 +3,7 @@ package com.livequake.disastersafetyalert;
 public class AlertContact {
 	private String name;
 	private String number;
-	private Boolean safe;
+	private Integer safe;
 	private String lastContact;
 	
 	public void setName(String newName) {
@@ -22,11 +22,11 @@ public class AlertContact {
 		return number;
 	}
 	
-	public void setSafe(Boolean safety) {
+	public void setSafe(Integer safety) {
 		this.safe = safety;
 	}
 	
-	public Boolean getSafe() {
+	public Integer getSafe() {
 		return safe;
 	}
 	

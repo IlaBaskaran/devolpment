@@ -3,6 +3,7 @@ package com.livequake.disastersafetyalert;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -71,6 +72,25 @@ public class DBHelper extends SQLiteOpenHelper {
 	    db.close();
 	    return contactList;
 	}
+    
+    /* Get safety values of all Alert Contacts */
+    public List<Integer> getAllSafety() {
+		List<Integer> contactList = new ArrayList<Integer>();
+	    
+	    SQLiteDatabase db = this.getReadableDatabase();
+	    Cursor cursor = db.rawQuery(DSAContract.AlertContactTable.SQL_GET_ALL, null);
+	 
+	    // looping through all rows and adding to list
+	    if (cursor.moveToFirst()) {
+	        do {
+	            contactList.add(cursor.getInt(3));
+	        } while (cursor.moveToNext());
+	    }
+	 
+	    cursor.close();
+	    db.close();
+	    return contactList;
+	}
 
     /* Get Phone Number of Specific Contact from Name */
     public String getPhone(String name) {
@@ -90,4 +110,5 @@ public class DBHelper extends SQLiteOpenHelper {
     	db.close();
     	return num;
     }
+    
 }

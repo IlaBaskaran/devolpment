@@ -42,7 +42,8 @@ public final class R {
         public static final int notify=0x7f070001;
         public static final int people=0x7f070002;
         public static final int places=0x7f070003;
-        public static final int watch_area=0x7f070004;
+        public static final int smsreceiver=0x7f070004;
+        public static final int watch_area=0x7f070005;
     }
     public static final class string {
         public static final int ac=0x7f050010;
@@ -59,6 +60,7 @@ public final class R {
         public static final int title_activity_notify=0x7f050008;
         public static final int title_activity_people=0x7f05000e;
         public static final int title_activity_places=0x7f05000f;
+        public static final int title_activity_smsreceiver=0x7f050011;
         public static final int title_activity_watch_area=0x7f05000a;
         public static final int watch=0x7f050003;
         public static final int what=0x7f050004;

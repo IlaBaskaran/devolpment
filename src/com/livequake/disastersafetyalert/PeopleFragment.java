@@ -2,6 +2,7 @@ package com.livequake.disastersafetyalert;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -32,7 +33,8 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 	static final int PICK_CONTACT_REQUEST = 1;
 	private ListView listContacts;
 	private static Context ctx;
-	static final String beginText = "[LIGHTHOUSE ALERT] ";
+	public static final String beginText = "[LIGHTHOUSE ALERT ";
+	public static final String bTEnd = "] ";
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 		List<String> ac = new ArrayList<String>();
 		ac = dbHelper.getAllNames();
 		
+		/* Reset ListView */
 		listContacts.setAdapter(null);
 		
 		ArrayAdapter<String> contactAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, ac);
@@ -100,7 +103,7 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 		        	/* Delete from Alert Contacts List and update ListView */
 		        	case 2:
 		        		SQLiteDatabase db = d.getWritableDatabase();
-		        		db.delete(DSAContract.AlertContactTable.TABLE_NAME, "PhoneNumber" + " = \"" + num + "\";", null);
+		        		db.delete(DSAContract.AlertContactTable.TABLE_NAME, "PhoneNumber = \"" + num + "\";", null);
 		        		loadList();
 		        		break;
 		        	/* Cancel Action */
@@ -128,7 +131,7 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 				break;
 		}
 		SmsManager sms = SmsManager.getDefault();
-		sms.sendTextMessage(num, null, beginText + message, null, null);
+		sms.sendTextMessage(num, null, beginText + state + bTEnd + message, null, null);
 	}
 	
 	@Override
@@ -192,12 +195,13 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 				int numCol = cursor.getColumnIndex(Phone.NUMBER);
 				String name = cursor.getString(nameCol);
 				String number = cursor.getString(numCol);
+				number = number.replaceAll("[^\\d.]", "");
 				
 				Log.i("dbinput", name);
 				Log.i("dbinput", number);
 				
 				/* New Database Helper */
-				DBHelper dbHelper = new DBHelper(this.getActivity().getApplicationContext());//getContext());
+				DBHelper dbHelper = new DBHelper(this.getActivity().getApplicationContext());
 				
 				if(dbHelper.getPhone(name).isEmpty()) {
 					SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -206,6 +210,7 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 					ContentValues values = new ContentValues();
 					values.put(DSAContract.AlertContactTable.COLUMN_NAME_NAME_ID, name);
 					values.put(DSAContract.AlertContactTable.COLUMN_NAME_PHONE, number);
+					values.put(DSAContract.AlertContactTable.COLUMN_NAME_SAFE, 3);
 			            
 					/* Insert the new row, returning the primary key value of the new row */
 					db.insert(DSAContract.AlertContactTable.TABLE_NAME, null, values);

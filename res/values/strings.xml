@@ -18,5 +18,6 @@
     <string name="title_activity_people">PeopleActivity</string>
     <string name="title_activity_places">PlacesActivity</string>
     <string name="ac">Add Contacts to Notify/Check</string>
+    <string name="title_activity_smsreceiver">SMSReceiver</string>
 
 </resources>
