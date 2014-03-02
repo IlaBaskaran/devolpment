@@ -2,7 +2,6 @@ package com.livequake.disastersafetyalert;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -20,7 +19,6 @@ public class MainFragmentActivity extends FragmentActivity implements ActionBar.
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_fragment);
-		Intent intent = getIntent();
 		
 		final ActionBar actionBar = getActionBar();
 		

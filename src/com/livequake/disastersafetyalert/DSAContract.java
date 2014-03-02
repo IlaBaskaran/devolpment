@@ -1,10 +1,5 @@
 package com.livequake.disastersafetyalert;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 public final class DSAContract {
@@ -34,6 +29,10 @@ public final class DSAContract {
 		public static final String SQL_DELETE_ACDB = "DROP TABLE IF EXISTS " + TABLE_NAME;
 		
 		public static final String SQL_GET_ALL = "SELECT  * FROM " + TABLE_NAME;
+		
+		public static final String SQL_GET_PHONE = "SELECT " + COLUMN_NAME_PHONE +
+				" FROM " + TABLE_NAME +
+				" WHERE " + COLUMN_NAME_NAME_ID + " = ";
 	}
 
 }

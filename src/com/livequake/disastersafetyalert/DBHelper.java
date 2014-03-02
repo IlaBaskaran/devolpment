@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
 	public static final  int    DATABASE_VERSION   = 1;
@@ -33,13 +34,14 @@ public class DBHelper extends SQLiteOpenHelper {
         onUpgrade(db, oldVersion, newVersion);
     }
 
-    public List<String> getAllContacts() {
+    /* Get all names from Alert Contact List */
+    public List<String> getAllNames() {
 		List<String> contactList = new ArrayList<String>();
 	    
-	    SQLiteDatabase db = this.getWritableDatabase();
+	    SQLiteDatabase db = this.getReadableDatabase();
 	    Cursor cursor = db.rawQuery(DSAContract.AlertContactTable.SQL_GET_ALL, null);
 	 
-	    // looping through all rows and adding to list
+	    /* looping through all rows and adding to list */
 	    if (cursor.moveToFirst()) {
 	        do {
 	            contactList.add(cursor.getString(1));
@@ -48,7 +50,44 @@ public class DBHelper extends SQLiteOpenHelper {
 	 
 	    cursor.close();
 	    db.close();
-	    // return contact list
 	    return contactList;
 	}
+    
+    /* Get list of all phone numbers from Alert Contact List */
+    public List<String> getAllNumbers() {
+		List<String> contactList = new ArrayList<String>();
+	    
+	    SQLiteDatabase db = this.getReadableDatabase();
+	    Cursor cursor = db.rawQuery(DSAContract.AlertContactTable.SQL_GET_ALL, null);
+	 
+	    // looping through all rows and adding to list
+	    if (cursor.moveToFirst()) {
+	        do {
+	            contactList.add(cursor.getString(2));
+	        } while (cursor.moveToNext());
+	    }
+	 
+	    cursor.close();
+	    db.close();
+	    return contactList;
+	}
+
+    /* Get Phone Number of Specific Contact from Name */
+    public String getPhone(String name) {
+    	String num = "";
+    	
+    	SQLiteDatabase db = this.getReadableDatabase();
+    	Cursor cursor = db.rawQuery(DSAContract.AlertContactTable.SQL_GET_PHONE + "\"" + name + "\";", null);
+    	
+    	if(cursor.moveToFirst()) {
+    		if(cursor != null) {
+    			num = cursor.getString(0);
+    			Log.i("getP", num);
+    		}
+    	}
+    	
+    	cursor.close();
+    	db.close();
+    	return num;
+    }
 }
