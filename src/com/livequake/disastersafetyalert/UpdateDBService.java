@@ -41,6 +41,9 @@ public class UpdateDBService extends IntentService {
 			db.update(DSAContract.AlertContactTable.TABLE_NAME,
 					values,
 					"PhoneNumber = \"" + phone + "\"", null);
+			
+			String gp = dbHelper.getPhone("Ryan Doherty");
+			Log.i("getTablePhone", gp);
 			String s = dbHelper.getSafety("Ryan Doherty");
 			Log.i("safetyCheck", s);
 		}

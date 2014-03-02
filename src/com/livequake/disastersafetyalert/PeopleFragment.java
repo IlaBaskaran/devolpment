@@ -213,9 +213,16 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 				String name = cursor.getString(nameCol);
 				String number = cursor.getString(numCol);
 				number = number.replaceAll("[^\\d.]", "");
+				String phone = "";
+				if(number.length() > 10) {
+					phone = number.substring(number.length()-10);
+				}
+				else {
+					phone = number;
+				}
 				
 				Log.i("dbinput", name);
-				Log.i("dbinput", number);
+				Log.i("dbinput", phone);
 				
 				/* New Database Helper */
 				DBHelper dbHelper = new DBHelper(this.getActivity().getApplicationContext());
@@ -226,7 +233,7 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 					/* Create insert entries */
 					ContentValues values = new ContentValues();
 					values.put(DSAContract.AlertContactTable.COLUMN_NAME_NAME_ID, name);
-					values.put(DSAContract.AlertContactTable.COLUMN_NAME_PHONE, number);
+					values.put(DSAContract.AlertContactTable.COLUMN_NAME_PHONE, phone);
 					values.put(DSAContract.AlertContactTable.COLUMN_NAME_SAFE, 2);
 			            
 					/* Insert the new row, returning the primary key value of the new row */
