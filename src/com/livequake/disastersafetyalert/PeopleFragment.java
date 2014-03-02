@@ -2,7 +2,6 @@ package com.livequake.disastersafetyalert;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -39,7 +38,7 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.activity_people, container, false);
-		ctx = this.getActivity();
+		ctx = this.getActivity().getApplicationContext();
 		
 		/* Add buttons */
 		Button bAC = (Button) view.findViewById(R.id.AddContacts);
@@ -88,13 +87,16 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 		builder.setItems(colors, new DialogInterface.OnClickListener() {
 		    @Override
 		    public void onClick(DialogInterface dialog, int which) {
-		    	DBHelper d = new DBHelper(PeopleFragment.ctx.getApplicationContext());
+		    	DBHelper d = new DBHelper(PeopleFragment.ctx);
 		    	String num = d.getPhone(name);
         		
 		        switch (which) {
 		        	/* Call */
 		        	case 0:
-		        		//call
+		        		Intent intent = new Intent(Intent.ACTION_CALL);
+		        		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		        		intent.setData(Uri.parse("tel:" + num));
+		        		PeopleFragment.ctx.startActivity(intent);
 		        		break;
 		        	/* Text */
 		        	case 1:
