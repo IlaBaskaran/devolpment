@@ -74,7 +74,7 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 	}
 	
 	private void checkUp(String n) {
-		CharSequence colors[] = new CharSequence[] {"Call", "Text", "Cancel"};
+		CharSequence colors[] = new CharSequence[] {"Call", "Text", "Delete", "Cancel"};
 		final String name = n;
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
@@ -83,16 +83,24 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 		    @Override
 		    public void onClick(DialogInterface dialog, int which) {
 		    	DBHelper d = new DBHelper(PeopleFragment.ctx.getApplicationContext());
-        		String num = d.getPhone(name);
+		    	String num = d.getPhone(name);
         		
 		        switch (which) {
+		        	/* Call */
 		        	case 0:
 		        		//call
 		        		break;
+		        	/* Text */
 		        	case 1:
 		        		sendSMS(num, 2);
 		        		break;
-		        	case 2:	return;
+		        	/* Delete from Alert Contacts List */
+		        	case 2:
+		        		SQLiteDatabase db = d.getWritableDatabase();
+		        		db.delete(DSAContract.AlertContactTable.TABLE_NAME, "PhoneNumber" + " = \"" + num + "\";", null);
+		        		break;
+		        	/* Cancel Action */
+		        	case 3: return;
 		        }
 		    }
 		});
@@ -139,6 +147,7 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 				state = 1;
 				break;
 			case R.id.AddContacts:
+				state = 3;
 				Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse("content://contacts"));
 				pickContactIntent.setType(Phone.CONTENT_TYPE);
 				startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
@@ -146,8 +155,10 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 		}
 
 		/* Send to each in Alert Contacts List */
-		for(int i = 0; i < ac.size(); i++) {
-			sendSMS(ac.get(i), state);
+		if(state != 3) {
+			for(int i = 0; i < ac.size(); i++) {
+				sendSMS(ac.get(i), state);
+			}
 		}
 	}
 

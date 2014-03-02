@@ -34,5 +34,4 @@ public final class DSAContract {
 				" FROM " + TABLE_NAME +
 				" WHERE " + COLUMN_NAME_NAME_ID + " = ";
 	}
-
 }
