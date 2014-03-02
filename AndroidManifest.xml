@@ -5,8 +5,11 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -14,13 +17,25 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.livequake.disastersafetyalert.MainActivity"
-            android:label="@string/app_name" >
+            android:name="com.livequake.disastersafetyalert.MainFragmentActivity"
+            android:label="@string/title_activity_main_fragment" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.livequake.disastersafetyalert.PeopleActivity"
+            android:label="@string/title_activity_people" >
+        </activity>
+        <activity
+            android:name="com.livequake.disastersafetyalert.PlacesActivity"
+            android:label="@string/title_activity_places" >
+        </activity>
+        <activity
+            android:name="com.livequake.disastersafetyalert.WatchAreaActivity"
+            android:label="@string/title_activity_watch_area" >
         </activity>
     </application>
 
