@@ -161,7 +161,7 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 		
 		/* Send to each in Alert Contacts List */
 		if(ac.isEmpty()) {
-			Toast q = Toast.makeText(PeopleFragment.ctx, "No contacts to alert!", Toast.LENGTH_LONG);
+			Toast q = Toast.makeText(PeopleFragment.ctx, "Add contacts to alert!", Toast.LENGTH_LONG);
 			q.show();
 		}
 		if(state != 3) {
