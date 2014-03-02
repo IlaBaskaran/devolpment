@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- REQUIRED PERMISSIONS (for Urban Airship GCM) -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -36,7 +37,7 @@
     <application
         android:name="com.livequake.disastersafetyalert.DisasterSafetyAlert"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/lighthouse"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         

@@ -133,7 +133,6 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 		        	case 2:
 		        		SQLiteDatabase db = d.getWritableDatabase();
 		        		db.delete(DSAContract.AlertContactTable.TABLE_NAME, "PhoneNumber = \"" + num + "\";", null);
-		        		//loadList();
 		        		break;
 		        	/* Cancel Action */
 		        	case 3: return;

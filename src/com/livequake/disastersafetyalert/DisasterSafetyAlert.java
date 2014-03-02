@@ -5,6 +5,7 @@ import com.urbanairship.AirshipConfigOptions;
 import com.urbanairship.Logger;
 import com.urbanairship.UAirship;
 import com.urbanairship.push.PushManager;
+import com.urbanairship.push.PushPreferences;
 
 public class DisasterSafetyAlert extends Application {
 	
@@ -36,6 +37,12 @@ public class DisasterSafetyAlert extends Application {
 
         PushManager.shared().setNotificationBuilder(nb);
         PushManager.shared().setIntentReceiver(IntentReceiver.class);*/
+		PushManager.shared().setIntentReceiver(IntentReceiver.class);
+		
+        PushPreferences prefs = PushManager.shared().getPreferences();
+        prefs.setSoundEnabled(true);
+        prefs.setVibrateEnabled(true);
+		
 		String apid = PushManager.shared().getAPID();
 		Logger.info("My Application onCreate - App APID: " + apid);
 	   }

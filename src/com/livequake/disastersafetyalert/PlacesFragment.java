@@ -10,6 +10,8 @@ import org.w3c.dom.NodeList;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -31,6 +33,16 @@ public class PlacesFragment extends Fragment{
 	private static Context ctx;
 	private ListView list_view;
 	private ListAdapter adapter;
+	
+	public boolean isOnline() {
+	    ConnectivityManager cm =
+	        (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo netInfo = cm.getActiveNetworkInfo();
+	    if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+	        return true;
+	    }
+	    return false;
+	}
     
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,13 +51,14 @@ public class PlacesFragment extends Fragment{
 		
 		ArrayList<HashMap<String, String>> DEventList = new ArrayList<HashMap<String, String>>();
 
+		if(isOnline()) {
 		XMLParser parser = new XMLParser();
 		String xml = parser.getXmlFromUrl(URL); // getting XML from URL
 		Document doc = parser.getDomElement(xml); // getting DOM element
 		
 		NodeList nl = doc.getElementsByTagName(KEY_ENTRY);
 		// looping through all song nodes <song>
-		for (int i = 0; i < nl.getLength(); i++) {
+		for (int i = 1; i < nl.getLength(); i++) {
 			// creating new HashMap
 			HashMap<String, String> map = new HashMap<String, String>();
 			Element e = (Element) nl.item(i);
@@ -86,6 +99,7 @@ public class PlacesFragment extends Fragment{
 				
 			}
 		});
+		}
         return view;
 	}
 
