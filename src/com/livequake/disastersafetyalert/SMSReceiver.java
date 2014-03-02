@@ -36,34 +36,15 @@ public class SMSReceiver extends BroadcastReceiver {
 							Log.i("SmsReceiverB", type);
 							String pNum = msgs[k].getOriginatingAddress();
 							pNum = pNum.replaceAll("[^\\d.]", "");
-							
-							/* New Database Helper */
-							/*DBHelper dbHelper = new DBHelper(MainFragmentActivity.getApplicationContext());
-							SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-							/* Update safety value */
-							/*ContentValues values = new ContentValues();
-							values.put(DSAContract.AlertContactTable.COLUMN_NAME_SAFE, Integer.parseInt(type));
-					        
-							
-							/*db.update(DSAContract.AlertContactTable.TABLE_NAME,
-									values,
-									"PhoneNumber = \"" + pNum + "\"", null);*/
-							
-						    Intent iS = new Intent(ctx, UpdateDBService.class);
+							Intent iS = new Intent(ctx, UpdateDBService.class);
 						    iS.putExtra("type", type);
 							iS.putExtra("num", pNum);
 							ctx.startService(iS);
 							
-							/* Launch Main Activity */
-							/*Intent mainActivityIntent = new Intent(ctx, MainFragmentActivity.class);
-							​​​​​​​​​​​​mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-							ctx.startActivity(mainActivityIntent);*/
-							/* send a broadcast to update the SMS received in the activity */
-							Intent broadcastIntent = new Intent();
+							/*Intent broadcastIntent = new Intent();
 							broadcastIntent.setAction("SMS_RECEIVED_ACTION");
 							broadcastIntent.putExtra("sms", m);
-							ctx.sendBroadcast(broadcastIntent);
+							ctx.sendBroadcast(broadcastIntent); */
 						}
 						else {
 							Log.i("SmsReceiver", "Not Relevant: " + msgs[k].getMessageBody());

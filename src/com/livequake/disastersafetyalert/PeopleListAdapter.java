@@ -64,19 +64,21 @@ public class PeopleListAdapter extends BaseAdapter {
         // Setting all values in listview
         //entry.setText(d_list.get(""));
         title.setText(d_list.get("name"));
-        //location.setText(d_list.get(PlacesFragment.KEY_LOCATION));
         int state = Integer.parseInt(d_list.get("safety"));
         Log.i("state", d_list.get("safety"));
         switch (state) {
         	case 0:
         		image.setImageResource(safetyMap.get("Safe"));
-        		break;
+        		location.setText("Currently Safe");
+                break;
         	case 1:
         		image.setImageResource(safetyMap.get("Help"));
-        		break;
+        		location.setText("Requesting Help");
+                break;
         	case 2:
         		image.setImageResource(safetyMap.get("Waiting"));
-        		break;
+        		location.setText("Waiting for Response");
+                break;
         } 
         //imageLoader.DisplayImage(song.get(CustomizedListViewPlaces.KEY_THUMB_URL), thumb_image);
         return vi;

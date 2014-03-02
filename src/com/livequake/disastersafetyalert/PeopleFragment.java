@@ -113,19 +113,32 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 		        		intent.setData(Uri.parse("tel:" + num));
 		        		PeopleFragment.ctx.startActivity(intent);
 		        		break;
-		        	/* Text */
+		        	/* SMS */
 		        	case 1:
+		        		/* New Database Helper */
+		    			DBHelper dbHelper = new DBHelper(ctx);
+		    			SQLiteDatabase dbR = dbHelper.getWritableDatabase();
+		    	
+		    			/* Update safety value to waiting for response*/
+		    			ContentValues values = new ContentValues();
+		    			values.put(DSAContract.AlertContactTable.COLUMN_NAME_SAFE, 2);
+		    	        
+		    			dbR.update(DSAContract.AlertContactTable.TABLE_NAME,
+		    					values,
+		    					"PhoneNumber = \"" + num + "\"", null);
+		    			/* Send SMS to check up */
 		        		sendSMS(num, 2);
 		        		break;
 		        	/* Delete from Alert Contacts List and update ListView */
 		        	case 2:
 		        		SQLiteDatabase db = d.getWritableDatabase();
 		        		db.delete(DSAContract.AlertContactTable.TABLE_NAME, "PhoneNumber = \"" + num + "\";", null);
-		        		loadList();
+		        		//loadList();
 		        		break;
 		        	/* Cancel Action */
 		        	case 3: return;
 		        }
+		        loadList();
 		    }
 		});
 		builder.show();
