@@ -71,8 +71,8 @@ public class DBHelper extends SQLiteOpenHelper {
 	    cursor.close();
 	    db.close();
 	    return contactList;
-	}
-    
+	}    
+	
     /* Get safety values of all Alert Contacts */
     public List<Integer> getAllSafety() {
 		List<Integer> contactList = new ArrayList<Integer>();
@@ -92,6 +92,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	    return contactList;
 	}
 
+
     /* Get Phone Number of Specific Contact from Name */
     public String getPhone(String name) {
     	String num = "";
@@ -110,5 +111,4 @@ public class DBHelper extends SQLiteOpenHelper {
     	db.close();
     	return num;
     }
-    
 }

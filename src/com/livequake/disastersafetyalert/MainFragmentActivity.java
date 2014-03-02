@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -14,11 +15,11 @@ import android.view.Menu;
 
 public class MainFragmentActivity extends FragmentActivity implements ActionBar.TabListener {
 	
-	/* Declare Tab Variable */
+	// Declare Tab Variable
 	Tab tab;
 	MFragPagerAdapter mMFragPagerAdapter;
 	ViewPager mViewPager;
-	/* Catch Intent from BroadcastReceiver */
+		/* Catch Intent from BroadcastReceiver */
 	IntentFilter intentFilter;
 	
 	private BroadcastReceiver intentReceiver = new BroadcastReceiver() {
@@ -27,20 +28,24 @@ public class MainFragmentActivity extends FragmentActivity implements ActionBar.
 			String msg = intent.getExtras().getString("sms");
 			String type = msg.substring(PeopleFragment.beginText.length(), PeopleFragment.beginText.length());
 			Log.i("SmsReceiverB", type);
-		}
 
+		}
 	};
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_fragment);
-		
+
 		/* Intent to filter */
 		intentFilter = new IntentFilter();
 		intentFilter.addAction("SMS_RECEIVED_ACTION");
 		//Intent nI = new Intent(android.content.Intent.ACTION_VIEW);
+	
 		
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		StrictMode.setThreadPolicy(policy);
 		
 		final ActionBar actionBar = getActionBar();
 		
@@ -107,4 +112,6 @@ public class MainFragmentActivity extends FragmentActivity implements ActionBar.
 		unregisterReceiver(intentReceiver);
 		super.onPause();
 	}
+
+
 }
