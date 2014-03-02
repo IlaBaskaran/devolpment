@@ -17,5 +17,6 @@
     <string name="title_activity_main_fragment">MainFragmentActivity</string>
     <string name="title_activity_people">PeopleActivity</string>
     <string name="title_activity_places">PlacesActivity</string>
+    <string name="ac">Add Contacts to Notify/Check</string>
 
 </resources>
