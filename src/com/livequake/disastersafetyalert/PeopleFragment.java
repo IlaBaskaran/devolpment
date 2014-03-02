@@ -54,6 +54,7 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 			public void onItemClick(AdapterView<?> arg0, View v, int pos, long arg) {
 				String selected =(listContacts.getItemAtPosition(pos).toString());
 				checkUp(selected);
+				loadList();
 			}
 		});
 		
@@ -68,7 +69,9 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 
 		List<String> ac = new ArrayList<String>();
 		ac = dbHelper.getAllNames();
-
+		
+		listContacts.setAdapter(null);
+		
 		ArrayAdapter<String> contactAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, ac);
 		listContacts.setAdapter(contactAdapter);
 	}
@@ -153,7 +156,8 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 				startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
 				break;
 		}
-
+		loadList();
+		
 		/* Send to each in Alert Contacts List */
 		if(state != 3) {
 			for(int i = 0; i < ac.size(); i++) {
@@ -186,18 +190,20 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 				
 				Log.i("dbinput", name);
 				Log.i("dbinput", number);
-
+				
 				/* New Database Helper */
 				DBHelper dbHelper = new DBHelper(this.getActivity().getApplicationContext());//getContext());
 				SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-				/* Create insert entries */
-				ContentValues values = new ContentValues();
-				values.put(DSAContract.AlertContactTable.COLUMN_NAME_NAME_ID, name);
-				values.put(DSAContract.AlertContactTable.COLUMN_NAME_PHONE, number);
-		            
-				/* Insert the new row, returning the primary key value of the new row */
-				db.insert(DSAContract.AlertContactTable.TABLE_NAME, null, values);
+				if(dbHelper.getPhone(name)== null) {
+					/* Create insert entries */
+					ContentValues values = new ContentValues();
+					values.put(DSAContract.AlertContactTable.COLUMN_NAME_NAME_ID, name);
+					values.put(DSAContract.AlertContactTable.COLUMN_NAME_PHONE, number);
+			            
+					/* Insert the new row, returning the primary key value of the new row */
+					db.insert(DSAContract.AlertContactTable.TABLE_NAME, null, values);
+				}
 			}
 		}
 	}
