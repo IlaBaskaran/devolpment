@@ -60,7 +60,7 @@
         android:text="Feb 25"
         android:layout_marginRight="5dip"
         android:textSize="10dip"
-        android:textColor="#10bcc9"
+        android:textColor="#343434"
         android:textStyle="bold"/>
       
      <!-- Rightend Arrow -->    

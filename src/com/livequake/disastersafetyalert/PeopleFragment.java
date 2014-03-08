@@ -160,7 +160,15 @@ public class PeopleFragment extends Fragment implements OnClickListener {
 				break;
 		}
 		SmsManager sms = SmsManager.getDefault();
-		sms.sendTextMessage(num, null, beginText + state + bTEnd + message, null, null);
+		String m = "";
+		try {
+			sms.sendTextMessage(num, null, beginText + state + bTEnd + message, null, null);
+			m = "Sent Text";
+		} catch (Exception e){
+			m = "Sending failed";
+		}
+		Toast t = Toast.makeText(ctx, m, Toast.LENGTH_SHORT);
+		t.show();
 	}
 	
 	@Override

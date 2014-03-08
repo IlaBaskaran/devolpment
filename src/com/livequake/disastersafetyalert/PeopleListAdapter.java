@@ -32,7 +32,6 @@ public class PeopleListAdapter extends BaseAdapter {
         activity = a;
         data=d;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-       // imageLoader=new ImageLoader(activity.getApplicationContext());
     }
 
     public int getCount() {
@@ -53,8 +52,8 @@ public class PeopleListAdapter extends BaseAdapter {
             vi = inflater.inflate(R.layout.list_row, null);
         }
         
-        TextView entry = (TextView)vi.findViewById(R.id.date); // entry
-        TextView title = (TextView)vi.findViewById(R.id.title); //title
+        TextView date = (TextView)vi.findViewById(R.id.date); // entry
+        TextView name = (TextView)vi.findViewById(R.id.title); // name
         TextView location = (TextView)vi.findViewById(R.id.location); // location
         ImageView image = (ImageView)vi.findViewById(R.id.list_image);
 
@@ -62,10 +61,9 @@ public class PeopleListAdapter extends BaseAdapter {
         d_list = data.get(position);
         
         // Setting all values in listview
-        //entry.setText(d_list.get(""));
-        title.setText(d_list.get("name"));
+        date.setText("");
+        name.setText(d_list.get("name"));
         int state = Integer.parseInt(d_list.get("safety"));
-        Log.i("state", d_list.get("safety"));
         switch (state) {
         	case 0:
         		image.setImageResource(safetyMap.get("Safe"));
@@ -80,7 +78,6 @@ public class PeopleListAdapter extends BaseAdapter {
         		location.setText("Waiting for Response");
                 break;
         } 
-        //imageLoader.DisplayImage(song.get(CustomizedListViewPlaces.KEY_THUMB_URL), thumb_image);
         return vi;
     }
 }

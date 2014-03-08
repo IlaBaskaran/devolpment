@@ -10,7 +10,7 @@ import android.support.v4.view.ViewPager;
 
 public class MFragPagerAdapter extends FragmentPagerAdapter {
 	
-	private static final int FRAGMENT_COUNT = 2;
+	private static final int FRAGMENT_COUNT = 3;
 	private List<Fragment> mFragments = new ArrayList<Fragment>();
 	private FragmentManager mFM;
 	public boolean disableSwipe = false;
@@ -20,8 +20,9 @@ public class MFragPagerAdapter extends FragmentPagerAdapter {
 		mFM = fm;
 		
 		//add fragments
-		mFragments.add(new PlacesFragment());
+		mFragments.add(new DisasterFragment());
 		mFragments.add(new PeopleFragment());
+		mFragments.add(new PlacesFragment());
 
 	}
 
@@ -41,15 +42,16 @@ public class MFragPagerAdapter extends FragmentPagerAdapter {
     	String name = "android:switcher:" + container.getId() + ":" + pos;
     	return  mFM.findFragmentByTag(name);
     }
-
 	
 	@Override
 	public CharSequence getPageTitle(int position) {
 		switch (position) {
 			case 0:
-				return "Places";
+				return "Disasters";
 			case 1:
 				return "People";
+			case 2:
+				return "Places";
 		}
 		return null;
     }

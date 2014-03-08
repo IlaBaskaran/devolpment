@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="@string/p_info" />
+        android:text="@string/d_info" />
     <ListView
         android:id="@+id/place_d_list"
         android:layout_width="fill_parent"
@@ -18,10 +18,5 @@
         android:divider="#b5b5b5"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/list_selector" />
-    <Button
-        android:id="@+id/AddPlaces"
-        android:layout_height="50dp"
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:text="@string/ap" />
+
 </RelativeLayout>
